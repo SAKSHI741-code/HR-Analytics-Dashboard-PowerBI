@@ -1,7 +1,8 @@
 Power Query Edits: 
 1. Split Column by Delimiter (Tab)
 2. Promoted Headers
-3. Merged Queries:
+3. Adding new Columns 
+4. Merged Queries:
    - Joined with another table using "EmployeeNumber" as the key
 
 📊 DAX Measures Created:
