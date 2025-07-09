@@ -1,1 +1,55 @@
+Power Query Edits: 
+1. Split Column by Delimiter (Tab)
+2. Promoted Headers
+3. Merged Queries:
+   - Joined with another table using "EmployeeNumber" as the key
 
+📊 DAX Measures Created:
+
+👥 Total Employees
+Total Emp = COUNTROWS('HR Analytics Data')
+
+⚧ Gender Distribution
+Male = CALCULATE([Total Emp], 'HR Analytics Data'[Gender] = "male")
+Male % = DIVIDE([Male], [Total Emp], 0)
+Female = CALCULATE([Total Emp], 'HR Analytics Data'[Gender] = "female")
+Female % = DIVIDE([Female], [Total Emp], 0)
+
+🏆 Promotion Eligibility
+Promotion Status based on: YearsSinceLastPromotion >= 10
+"Due for Promotion" vs "Not Due"
+
+Due for promotion = CALCULATE([Total Emp], 'HR Analytics Data'[Promotion status] = "due for promotion")
+% Due for promotion = DIVIDE([Due for promotion], [Total Emp], 0)
+Not Due = CALCULATE([Total Emp], 'HR Analytics Data'[Promotion status] = "not due")
+% Not due for promotion = DIVIDE([Not Due], [Total Emp], 0)
+
+🧓 Retirement Eligibility
+Retirement Status based on: YearsAtCompany >= 18
+
+Due for retrenchment = IF(
+    ISBLANK(CALCULATE([Total Emp], 'HR Analytics Data'[Retirement] = "due for retirement")),"0",
+    CALCULATE([Total Emp], 'HR Analytics Data'[Retirement] = "due for retirement")
+)
+% Due for retirment = DIVIDE([Due for retrenchment], [Total Emp], 0)
+Active workers = CALCULATE([Total Emp], 'HR Analytics Data'[Retirement] = "on service")
+% Active workers = DIVIDE([Active workers], [Total Emp], 0)
+
+🚗 Distance from Office (Categorized)
+Based on DistanceFromHome:
+>= 20 → "Far"
+>= 10 and < 20 → "Close"
+< 10 → "Very Close"
+
+🏆Working Overtime
+Working Overtime = CALCULATE([Total Emp], 'HR Analytics Data'[OverTime] = "Yes")
+
+🌟 Performance Ratings
+Based on:
+Performance Rating = 3 → High
+= 2 → Medium
+Else → Low
+
+High emp rating = CALCULATE([Total Emp], 'HR Analytics Data'[Performance Rating] = "high ratings")
+Medium emp rating = CALCULATE([Total Emp], 'HR Analytics Data'[Performance Rating] = "medium ratings")
+Low emp rating = CALCULATE([Total Emp], 'HR Analytics Data'[Performance Rating] = "low ratings")
